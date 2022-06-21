@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript" src="./osql.js"></script>
+
+    <script>
+        osql.requireLogin();
+
+        async function buttonPressed() {
+            var me = await osql.getMe();
+            console.log(me);
+            var sql = `Insert into Players (playerId, name) values("${me.id}", "${me.lname}");`;
+            var objects = await osql.connect(sql);
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>ユーザートップ</h1>
+    <div>
+        <button onclick="buttonPressed()">ログイン</button>
+  </div>
+</body>
+
+</html>
