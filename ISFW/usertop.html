@@ -14,8 +14,13 @@
         async function buttonPressed() {
             var me = await osql.getMe();
             console.log(me);
-            var sql = `Insert into Players (playerId, name) values("${me.id}", "${me.lname}");`;
+            var sql = `Insert ignore into Players (playerId, name) values("${me.id}", "${me.lname}");`;
             var objects = await osql.connect(sql);
+
+            sessionStorage.setItem('playerId', me.id);
+            sessionStorage.setItem('name', me.lname);
+
+            location.href = 'waiting.html';
         }
     </script>
 
