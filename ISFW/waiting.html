@@ -1,1 +1,29 @@
-<h1>とんだ</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var name = sessionStorage.getItem('name');
+        console.log(name);
+        //document.getElementById('name').innerHTML = name;
+
+        async function buttonPressed(){
+            // sessionStorage.setItem('playerId', me.id);
+            // sessionStorage.setItem('name', me.lname);
+            // console.log(playerId);
+            // console.log(name);
+
+            location.href = 'game.html';
+        }
+    </script>
+</head>
+<body>
+    <p id="name"></p>
+    <div>
+        <button onclick="buttonPressed()">開始</button>
+  </div>
+</body>
+</html>
