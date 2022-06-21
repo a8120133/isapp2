@@ -10,6 +10,7 @@
 
     <script>
         osql.requireLogin();
+
         async function buttonPressed() {
             var userid = document.getElementById('tf1').value;
             var password = document.getElementById('tf2').value;
@@ -35,8 +36,20 @@
 </head>
 
 <body>
-    <h1>待機画面</h1>
-    <button onclick="buttonPressed()">開始</button>
+    <h1>ユーザ管理　アプリケーション　v3</h1>
+    <div>
+        <h2>ログイン</h2>
+        userid:<input id="tf1" value="" type="textfield">
+        <br>
+        password:<input id="tf2" value="" type="password">
+        <br>
+        <button onclick="buttonPressed()">ログイン</button>
+        <p id="result"></p>
+    </div>
+    <hr>
+    <p><a href="register.html">新規登録</a></p>
+    <hr>
+    <p style="text-align: right"><a href="admintop.html">管理者ページ</a></p>
 </body>
 
 </html>
