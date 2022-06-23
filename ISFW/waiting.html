@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
+
+        $().ready(function () {
+            doTable();
+            x = 0;
+            setInterval(doCount, 2000);
+        });
         var name = sessionStorage.getItem('name');
         console.log(name);
         //document.getElementById('name').innerHTML = name;
@@ -15,12 +21,18 @@
             // sessionStorage.setItem('name', me.lname);
             // console.log(playerId);
             // console.log(name);
+            var gameId =  
+            var sql_1 = `update Games set turn = 1 where id = ${gameId};`//誰かが開始を押したらturnを1にする
+            var objects = await osql.connect(sql_1);
 
             location.href = 'game.html';
         }
+
+
     </script>
 </head>
 <body>
+    <h1>グループメンバーの参加を待っています</h1>
     <p id="name"></p>
     <div>
         <button onclick="buttonPressed()">開始</button>
