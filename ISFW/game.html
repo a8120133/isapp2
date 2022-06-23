@@ -5,23 +5,32 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <script type="text/javascript" src="../jquery.min.js"></script>
-    <script type="text/javascript" src="../settings.js"></script>
-    <script type="text/javascript" src="../osql.js"></script>
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript" src="./osql.js"></script>
 
     <script>
         $().ready(function () {
-            doTable();
+            //check();
             x = 0;
             setInterval(doCount, 2000);
+            Answer();
         });
 
         async function doCount() {
             x++;
-            doTable();
+            //check();
         }
 
-        async function doTable() {
+        function waiting() {
+            document.getElementById('comment').innerHTML =  'さんの番です。待っててね。';
+        }
+
+
+        function Answer() {
+            document.getElementById('comment').innerHTML =  'さんの番です。' //+ <input type = "text" id = "word"><button onclick="buttonPressed()">送信</button>;
+        }
+
+        async function check(){
             var word = document.getElementById('tf2').value;
             var sql_1 = `select * from Tweets ;`
             var objects = await osql.connect(sql_1);
@@ -39,38 +48,13 @@
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
-
-
-        function button1Pressed() {
-            doInsert();
-            document.getElementById('tf2').value = "";
-            doTable();
-        }
-
-        async function doInsert() {
-            var userid = document.getElementById('tf1').value;
-            var tweet = document.getElementById('tf2').value;
-
-            var sql = `insert into Tweets (name, tweet, time) values("${userid}", "${tweet}", now());`;
-            var objects = await osql.connect(sql);
-            console.log(objects);
-
-            document.getElementById('result').innerHTML = "tweetしました";
-            
-        }
     </script>
 
 </head>
 
 <body>
-    <h1>Tweets</h1>
-    <br>
-    名前:<input id="tf1" value="名無し" type="textfield">
-    <br>
-    tweet:<input id="tf2" type="textfield">
-    <button onclick="button1Pressed()">tweet</button>
-    <br> 
-    <p id="result"></p> 
+    <h1>game.html</h1>
+    <p id = 'comment'></p>
 
 </body>
 
