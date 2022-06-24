@@ -14,7 +14,15 @@
         async function buttonPressed() {
             var me = await osql.getMe();
             console.log(me);
-            myCheck();
+            yakuwari = document.getElementById('person');
+            if (x =='管理者'){
+                location.href = 'admin1.html';
+            }else if (x =='参加者'){
+                var sql_1 = `Insert ignore into Players (playerId, name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
+                var objects_1 = await osql.connect(sql_1);
+
+                location.href = 'lottery-personal.html';
+            }
             
 
             sessionStorage.setItem('playerId', me.id);
@@ -48,13 +56,10 @@
 
 <body>
     <h1>ユーザートップ</h1>
-    <form name="form1">
-        <input type = 'text' id = 'person'>管理者
-    </form>
+        役割：（管理者か参加者か入力してください）<input type = 'text' id = 'person'>
     <div>
-        <button onclick=buttonPressed()>ログイン</button>
-
-  </div>
+        <button onclick="buttonPressed()">ログイン</button>
+    </div>
 </body>
 
 </html>
