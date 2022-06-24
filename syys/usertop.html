@@ -14,56 +14,46 @@
         async function buttonPressed() {
             var me = await osql.getMe();
             console.log(me);
-            var sql_1 = `Insert ignore into Players (playerId, name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
-            var objects_1 = await osql.connect(sql_1);
-            var sql_2 = `select game_id from Games order by game_id desc limit 1;`;
-            var gameId = 0;//await osql.connect(sql_2);
-            console.log(gameId);
-            var sql_3 = `select Players from Games;`;//GroupPlayersをgame_id順に並べて人間の順番で一番大きなものを抜き出す
-            var new_itemOrder = await osql.connect(sql_3);
-            var playerOrder = Number(new_itemOrder[0].Players) +1;
-            console.log(playerOrder);
-            var sql_4 = `insert into GroupPlayers (game_id, PlayerId, item_order) values(${gameId}, "${me.id}", ${playerOrder});`; //GroupPlayersに新しい参加者を追加
-            var objects = await osql.connect(sql_4);
-
-            console.log(new_itemOrder);
+            myCheck();
             
 
             sessionStorage.setItem('playerId', me.id);
             sessionStorage.setItem('name', me.lname);
 
-            //location.href = 'waiting.html';
-        }
+//             //location.href = 'waiting.html';
+//             function myCheck(){
+//                 var flag = false; // 選択されているか否かを判定するフラグ
+   
+//    //　ラジオボタンの数だけ判定を繰り返す（ボタンを表すインプットタグがあるので１引く）
+//                 for(var i=0; i<3;i++){
+ 
+//         // i番目のラジオボタンがチェックされているかを判定
+//                     if(document.form1.person[i].checked){ 
+//                         flag = true;    
+//                         alert(document.form1.person[i].value + "が選択されました。");
+//                     }
+//                 }
+  
+//     // 何も選択されていない場合の処理
+//                 if(!flag){ 
+//                     alert("項目が選択されていません。");
+//                 }
+//             }
+//         }
 
 
-        function butttonCheck(){
-            var checkValue = '';
-
-            for (let i = 0; i < len; i++){
-                if (personRadio.item(i).checked){
-                    checkValue = personRadio.item(i).value;
-                }
-            }
-            console.log('選択されているのは ' + checkValue + ' です');
-        }
-
-        var personRadio = document.getElementsByName('person');
-        var len = personRadio.length;
-        elements.checked
-        personRadio[0].checked = true;
-
-        var checkButton = document.getElementById('checkButton');
-        checkButton.addEventListener('click', buttonCheck);
     </script>
 
 </head>
 
 <body>
     <h1>ユーザートップ</h1>
-    <input type = 'radio' name = 'person' id = 'admin'>管理者
-    <input type = 'radio' name = 'person' id ='partici'>参加者
+    <form name="form1">
+        <input type = 'text' id = 'person'>管理者
+    </form>
     <div>
-        <button onclick="buttonPressed()" id ="checkButton">ログイン</button>
+        <button onclick=buttonPressed()>ログイン</button>
+
   </div>
 </body>
 
