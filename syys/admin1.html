@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者1</title>
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript" src="./osql.js"></script>
+    <script>
+        function buttonPressed(){
+            var lottery_name = document.getElementsById("lottery_name").value;
+            var lottery_levels = Number(dcument.getElementsById("lottery_levels").value);
+
+            sessionStorage.setItem("lottery_name", lottery_name);
+            sessionStorage.setItem("lottery_levels", lottery_levels);
+
+            location.href = 'admin2.html';
+            
+        }
+
+    </script>
+</head>
+<body>
+    <h1>管理者1</h1>
+    <div>
+        <p>イベント名
+            <input type="text" id="lottery_name">
+        </p>
+        <p>何等まで？
+            <input type="text" id="lottery_levels">
+        </p>
+    </div>
+    <button onclick="buttonPressed()">次へ</button>
+    
+</body>
+</html>
