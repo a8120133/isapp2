@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者2</title>
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript" src="./osql.js"></script>
+    <script>
+        function buttonPressed(){
+            var lottery_levels = sessionStorage.getItem('lottery_levels');
+            console.log(lottery_levels);
+            
+        }
+
+    </script>
+</head>
+<body>
+    <h1>管理者2</h1>
+    <div id="input_levels">
+        
+    </div>
+    <button onclick="buttonPressed()">抽選開始</button>
+    
+</body>
+</html>
