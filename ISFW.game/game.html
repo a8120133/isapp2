@@ -31,10 +31,12 @@
             sql =  `select * from GroupPlayers where PlayerId = "${me.id}";`; 
             objects = await osql.connect(sql);
             var player_order = Number(objects[0].item_order);
-            var amari = turn % player_num;
-            var n = player_order - 1;
+            var amari = Number(turn % player_num);
+            console.log(amari);
+            var n = Number(player_order - 1);
+            console.log(n)
             if(amari == n){
-                console.log(n)
+                
                 document.getElementById("comment").innerHTML = "あなたの番です"
                 document.getElementById("answer").innerHTML = "<input type='text' id='myanswer'><button onclick='buttonAddPressed()'>回答</button>"
                 sql = `update Games set turn = turn + 1 where room_id = ${gameId} `;
