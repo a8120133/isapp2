@@ -10,9 +10,7 @@
 
     <script>
         $().ready(function () {
-            //check();
-            x = 0;
-            setInterval(doCount, 2000);
+            setInterval(showTable, 2000);
             waiting();
         });
 
@@ -35,9 +33,20 @@
             var amari = turn % player_num;
             if(amari == player_order){
                 document.getElementById("comment").innerHTML = "あなたの番です"
+                document.getElementById("answer").innerHTML = "<input type='text' id='myanswer'><button onclick='buttonAddPressed()'>回答</button>"
             }else{
                 document.getElementById("comment").innerHTML = "待っててね"
             }
+        }
+
+        async function buttonAddPressed() {
+            var me = await osql.getMe();
+            var gameId = osql.getParam("gameid");
+            var myanswer = document.getElementById("myanswer").value;
+            var sql =  `insert ignore into Items (game_id, PlayerId, item_order,contents) values (${gameId}, "${me.id}", "0", "${myanswer}");`;
+            var objects = await osql.connect(sql);
+            document.getElementById("comment").innerHTML = "待っててね"
+            document.getElementById("answer").innerHTML = ""
         }
 
 
@@ -45,23 +54,19 @@
         //     document.getElementById('comment').innerHTML =  'さんの番です。' //+ <input type = "text" id = "word"><button onclick="buttonPressed()">送信</button>;
         // }
 
-        async function check(){
-            var word = document.getElementById('tf2').value;
-            var sql_1 = `select * from Tweets ;`
+        async function showTable(){
+            var sql_1 = `select * from Items;`
             var objects = await osql.connect(sql_1);
             var html = '';
             html = html + '<table border="1">';
             for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
                 html = html + '<tr>';
-                html = html + '<td>' + object.id + '</td>';
-                html = html + '<td>' + object.name + '</td>';
-                html = html + '<td>' + object.tweet + '</td>';
-                html = html + '<td>' + object.time + '</td>';
+                html = html + '<td>' + object.contents + '</td>';
                 html = html + '</tr>';
             }
             html = html + '</table>';
-            document.getElementById('result').innerHTML = html;
+            document.getElementById('answerTable').innerHTML = html;
         }
     </script>
 
@@ -70,6 +75,8 @@
 <body>
     <h1>game.html</h1>
     <p id = 'comment'></p>
+    <div id="answer"></div>
+    <div id="answerTable"></div>
 
 </body>
 
