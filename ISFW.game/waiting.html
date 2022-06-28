@@ -4,38 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript" src="./osql.js"></script>
     <title>Document</title>
     <script>
 
         $().ready(function () {
             doJoin();
-            x = 0;
-            setInterval(doCount, 2000);
+            setInterval(doCheck, 2000);
         });
-        var name = sessionStorage.getItem('name');
-        console.log(name);
-        //document.getElementById('name').innerHTML = name;
 
         async function buttonPressed(){
-            // sessionStorage.setItem('playerId', me.id);
-            // sessionStorage.setItem('name', me.lname);
-            // console.log(playerId);
-            // console.log(name);
-            var id = sessionStorage.getItem('playerId', me.id);
-            var gameId =  `select last(game_id) from Games;`;//1にする
-            var Id =  `select last(game_id) from Games;`;
-            var sql_1 = `update Games set turn = 1 where id = ${gameId};`//誰かが開始を押したらturnを1にする
-            var sql_2 = `insert into GroupPlayer (game_id, PlayerId) values (${gameId}, ${id});`;
-            var objects = await osql.connect(sql_1);
+            var gameId = osql.getParam("gameid");
+            var sql = `update Games set turn = turn + 1 where room_id = ${gameId} `;
+            var objects = await osql.connect(sql);
+            location.href =  `game.html?gameid=${gameId}`;
+        }
 
-            location.href = 'game.html';
+        async function doCheck(){
+            var gameId = osql.getParam("gameid");
+            var sql =  `select * from Games where room_id = ${gameId};`;
+            var objects = await osql.connect(sql);
+            var turn = Number(objects[0].turn);
+            if(turn > 0){
+                location.href = `game.html?gameid=${gameId}`;
+                
+            }
+            
         }
 
         async function doJoin(){
-            var gameId = osql.getParam(gameid);
+            var player = await osql.getMe();
+            var gameId = osql.getParam("gameid");
+            var sql =  `select * from Games where room_id = ${gameId};`;
+            var objects = await osql.connect(sql);
+            var player_num = Number(objects[0].player_num);
+            var playerOrder = player_num + 1;
+            sql = `insert into GroupPlayers (game_id, PlayerId, item_order) values (${gameId}, "${player.id}",${playerOrder});`;
+            objects = await osql.connect(sql);
+            sql = `update Games set player_num = player_num + 1 where room_id = ${gameId} `;
+            objects = await osql.connect(sql);
+
             
-            var sql_2 = `insert into GroupPlayer (game_id, PlayerId) values (${gameId}, ${id});`;
-            var objects = await osql.connect(sql_2);
         }
 
 
@@ -45,7 +55,7 @@
     <h1>グループメンバーの参加を待っています</h1>
     <p id="comment"></p>
     <div>
-        <button onclick="buttonPressed()">入力</button>
+        <button onclick="buttonPressed()">開始</button>
     </div>
 </body>
 </html>
