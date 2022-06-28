@@ -10,14 +10,15 @@
 
     <script>
         $().ready(function () {
-            setInterval(showTable, 2000);
-            waiting();
+            Tick();
+            setInterval(Tick, 2000);
         });
 
-        async function doCount() {
-            x++;
-            //check();
+        async function Tick(){
+            await waiting();
+            await showTable();
         }
+
 
         async function waiting() {
             var me = await osql.getMe();
