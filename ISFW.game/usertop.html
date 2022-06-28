@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript" src="./osql.js"></script>
+
+    <script>
+        osql.requireLogin();
+
+        $().ready(function () {
+            init();
+            setInterval(showGames, 2000);
+        });
+
+        async function init(){
+            var me = await osql.getMe();
+            console.log(me);
+            var name = sessionStorage.getItem('name');
+            document.getElementById('welcome').innerHTML = 'ようこそ' + name + 'さん';
+        }
+
+        async function showGames() {
+            
+
+            var sql_2 = 'select * from Games';
+            var objects = await osql.connect(sql_2);
+            console.log(objects);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < objects.length; i++) {
+                html = html + '<tr>';
+                var object = objects[i];
+                html = html + '<td>' + object.room_name + '</td>';
+                html = html + '<td>' + object.theme + '</td>';
+                html = html + '<td>' + '<a href="waiting.html?gameid=' + object.room_id + '">入室</a>' + '</td>';
+                html = html + '</tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('room_table').innerHTML = html;
+        }
+        async function buttonAddPressed() {
+            var new_room = document.getElementById('new_room').value;
+            var new_theme = document.getElementById('new_theme').value;
+            var sql_1 = `Insert into Games (room_name, theme) values("${new_room}", "${new_theme}");`;//新しいroomを作成（データベースに追加）
+            var objects_1 = await osql.connect(sql_1);
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>ユーザートップ</h1>
+    <p id = 'welcome'></p>
+    グループ名：<input type = 'text' id = 'new_room'>
+    お題：<input type = 'text' id = 'new_theme'>
+    <div>
+        <button onclick="buttonAddPressed()">追加</button>
+  </div>
+    <div id = 'room_table'>
+
+    </div>
+</body>
+
+</html>

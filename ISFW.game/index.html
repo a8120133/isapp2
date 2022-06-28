@@ -16,30 +16,20 @@
             console.log(me);
             var sql_1 = `Insert ignore into Players (playerId, name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
             var objects_1 = await osql.connect(sql_1);
-            var sql_2 = `select game_id from Games order by game_id desc limit 1;`;
-            var gameId = 0;//await osql.connect(sql_2);
-            console.log(gameId);
-            var sql_3 = `select Players from Games;`;//GroupPlayersをgame_id順に並べて人間の順番で一番大きなものを抜き出す
-            var new_itemOrder = await osql.connect(sql_3);
-            var playerOrder = Number(new_itemOrder[0].Players) +1;
-            console.log(playerOrder);
-            var sql_4 = `insert into GroupPlayers (game_id, PlayerId, item_order) values(${gameId}, "${me.id}", ${playerOrder});`; //GroupPlayersに新しい参加者を追加
-            var objects = await osql.connect(sql_4);
-
-            console.log(new_itemOrder);
+            
             
 
             sessionStorage.setItem('playerId', me.id);
             sessionStorage.setItem('name', me.lname);
 
-            //location.href = 'waiting.html';
+            location.href = 'usertop.html';
         }
     </script>
 
 </head>
 
 <body>
-    <h1>ユーザートップ</h1>
+    <h1>トップページ</h1>
     <div>
         <button onclick="buttonPressed()">ログイン</button>
   </div>
