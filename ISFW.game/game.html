@@ -13,7 +13,7 @@
             //check();
             x = 0;
             setInterval(doCount, 2000);
-            Answer();
+            waiting();
         });
 
         async function doCount() {
@@ -21,14 +21,29 @@
             //check();
         }
 
-        function waiting() {
-            document.getElementById('comment').innerHTML =  'さんの番です。待っててね。';
+        async function waiting() {
+            var me = await osql.getMe();
+            var gameId = osql.getParam("gameid");
+            var sql =  `select * from Games where room_id = ${gameId};`;
+            var objects = await osql.connect(sql);
+            var turn = Number(objects[0].turn);
+            var player_num = Number(objects[0].player_num);
+            console.log(me.id)
+            sql =  `select * from GroupPlayers where PlayerId = "${me.id}";`; 
+            objects = await osql.connect(sql);
+            var player_order = Number(objects[0].item_order);
+            var amari = turn % player_num;
+            if(amari == player_order){
+                document.getElementById("comment").innerHTML = "あなたの番です"
+            }else{
+                document.getElementById("comment").innerHTML = "待っててね"
+            }
         }
 
 
-        function Answer() {
-            document.getElementById('comment').innerHTML =  'さんの番です。' //+ <input type = "text" id = "word"><button onclick="buttonPressed()">送信</button>;
-        }
+        // function Answer() {
+        //     document.getElementById('comment').innerHTML =  'さんの番です。' //+ <input type = "text" id = "word"><button onclick="buttonPressed()">送信</button>;
+        // }
 
         async function check(){
             var word = document.getElementById('tf2').value;
