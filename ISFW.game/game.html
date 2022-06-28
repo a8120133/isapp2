@@ -32,7 +32,7 @@
             objects = await osql.connect(sql);
             var player_order = Number(objects[0].item_order);
             var amari = turn % player_num;
-            if(amari == player_order){
+            if(amari == player_order - 1){
                 document.getElementById("comment").innerHTML = "あなたの番です"
                 document.getElementById("answer").innerHTML = "<input type='text' id='myanswer'><button onclick='buttonAddPressed()'>回答</button>"
                 sql = `update Games set turn = turn + 1 where room_id = ${gameId} `;
