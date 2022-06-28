@@ -10,7 +10,7 @@
 
     <script>
         $().ready(function () {
-            setInterval(showTable, 2000);
+            setInterval(showTable(), 2000);
             waiting();
         });
 
@@ -34,6 +34,9 @@
             if(amari == player_order){
                 document.getElementById("comment").innerHTML = "あなたの番です"
                 document.getElementById("answer").innerHTML = "<input type='text' id='myanswer'><button onclick='buttonAddPressed()'>回答</button>"
+                sql = `update Games set turn = turn + 1 where room_id = ${gameId} `;
+                objects = await osql.connect(sql);
+
             }else{
                 document.getElementById("comment").innerHTML = "待っててね"
             }
@@ -55,7 +58,8 @@
         // }
 
         async function showTable(){
-            var sql_1 = `select * from Items;`
+            var gameId = osql.getParam("gameid");
+            var sql_1 = `select * from Items where game_id = ${gameId};`
             var objects = await osql.connect(sql_1);
             var html = '';
             html = html + '<table border="1">';
