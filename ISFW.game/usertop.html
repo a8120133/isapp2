@@ -56,7 +56,13 @@
     <h1>ユーザートップ</h1>
     <p id = 'welcome'></p>
     グループ名：<input type = 'text' id = 'new_room'>
-    お題：<input type = 'text' id = 'new_theme'>
+    お題：
+    <select>
+        <option value="administer">管理者</option>
+        <option value="playerr">参加者</option>
+
+    </select>
+    <input type = 'text' id = 'new_theme'>
     <div>
         <button onclick="buttonAddPressed()">追加</button>
   </div>
