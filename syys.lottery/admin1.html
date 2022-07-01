@@ -9,8 +9,14 @@
     <script type="text/javascript" src="./osql.js"></script>
     <script>
         function buttonPressed(){
-            var Lottery_name = document.getElementsById("lottery_name").value;
-            var Level_numbers = Number(dcument.getElementsById("lottery_levels").value);
+            var Lottery_name = document.getElementById("Lottery_name").value;
+            var Lottery_host = sessionStorage.getItem('Lottery_host');
+            var Level_numbers = Number(document.getElementById("Level_numbers").value);
+
+            var sql = `Insert into Lottery (Lottery_name, Lottery_host, Player_numbers, Level_numbers) values ("${Lottery_name}", "${Lottery_host}", 0, ${Level_numbers});`;
+            var objects = osql.connect(sql);
+
+
 
             sessionStorage.setItem("Lottery_name", Lottery_name);
             sessionStorage.setItem("Level_numbers", Level_numbers);
@@ -25,10 +31,10 @@
     <h1>管理者ページ1</h1>
     <div>
         <p>イベント名：
-            <input type="text" id="lottery_name">
+            <input type="text" id="Lottery_name">
         </p>
         <p>何等まで？:
-            <input type="text" id="lottery_levels">
+            <input type="text" id="Level_numbers">
             <br>(半角数字で記入してください)
         </p>
     </div>

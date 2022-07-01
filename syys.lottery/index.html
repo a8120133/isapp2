@@ -15,10 +15,9 @@
             var me = await osql.getMe();
             console.log(me);
 
-            x = document.getElementById('type');
+            x = document.getElementById('type').value;
             if (x =='administer'){
-                sessionStorage.setItem('playerId', me.id);
-                sessionStorage.setItem('name', me.lname);
+                sessionStorage.setItem('Lottery_host', me.lname);
                 location.href = 'admin1.html';
             }else if (x =='player'){
                 var sql = `Insert ignore into Players (playerId, name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
