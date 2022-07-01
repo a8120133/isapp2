@@ -9,11 +9,11 @@
     <script type="text/javascript" src="./osql.js"></script>
     <script>
         function buttonPressed(){
-            var lottery_name = document.getElementsById("lottery_name").value;
-            var lottery_levels = Number(dcument.getElementsById("lottery_levels").value);
+            var Lottery_name = document.getElementsById("lottery_name").value;
+            var Level_numbers = Number(dcument.getElementsById("lottery_levels").value);
 
-            sessionStorage.setItem("lottery_name", lottery_name);
-            sessionStorage.setItem("lottery_levels", lottery_levels);
+            sessionStorage.setItem("Lottery_name", Lottery_name);
+            sessionStorage.setItem("Level_numbers", Level_numbers);
 
             location.href = 'admin2.html';
             
@@ -22,13 +22,14 @@
     </script>
 </head>
 <body>
-    <h1>管理者1</h1>
+    <h1>管理者ページ1</h1>
     <div>
-        <p>イベント名
+        <p>イベント名：
             <input type="text" id="lottery_name">
         </p>
-        <p>何等まで？
+        <p>何等まで？:
             <input type="text" id="lottery_levels">
+            <br>(半角数字で記入してください)
         </p>
     </div>
     <button onclick="buttonPressed()">次へ</button>
