@@ -9,58 +9,41 @@
     <script type="text/javascript" src="./osql.js"></script>
 
     <script>
-        osql.requireLogin();
+        $().ready(function () {
+            console.log("こんにちは");
+            showLottery();
+        });
 
-        async function buttonPressed() {
-            var me = await osql.getMe();
-            console.log(me);
-            yakuwari = document.getElementById('person');
-            if (x =='管理者'){
-                location.href = 'admin1.html';
-            }else if (x =='参加者'){
-                var sql_1 = `Insert ignore into Players (playerId, name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
-                var objects_1 = await osql.connect(sql_1);
-
-                location.href = 'lottery-personal.html';
+        async function showLottery() {
+            var sql = 'select * from Lottery';
+            var objects = await osql.connect(sql);
+            console.log(objects);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < objects.length; i++) {
+                html = html + '<tr>';
+                var object = objects[i];
+                html = html + '<td>' + object.Lottery_name + '</td>';
+                html = html + '<td>' + '<a href="lottery_player.html?lottery_id=' + object.Lottery_id + '">参加</a>' + '</td>';
+                html = html + '</tr>';
             }
-            
-
-            sessionStorage.setItem('playerId', me.id);
-            sessionStorage.setItem('name', me.lname);
+            html = html + '</table>';
+            document.getElementById('lottery_table').innerHTML = html;
         }
-
-//             //location.href = 'waiting.html';
-//             function myCheck(){
-//                 var flag = false; // 選択されているか否かを判定するフラグ
-   
-//    //　ラジオボタンの数だけ判定を繰り返す（ボタンを表すインプットタグがあるので１引く）
-//                 for(var i=0; i<3;i++){
- 
-//         // i番目のラジオボタンがチェックされているかを判定
-//                     if(document.form1.person[i].checked){ 
-//                         flag = true;    
-//                         alert(document.form1.person[i].value + "が選択されました。");
-//                     }
-//                 }
-  
-//     // 何も選択されていない場合の処理
-//                 if(!flag){ 
-//                     alert("項目が選択されていません。");
-//                 }
-//             }
-//         }
-
-
+        async function buttonAddPressed() {
+            var new_room = document.getElementById('new_room').value;
+            var new_theme = document.getElementById('new_theme').value;
+            var sql_1 = `Insert into Games (room_name, theme) values("${new_room}", "${new_theme}");`;//新しいroomを作成（データベースに追加）
+            var objects_1 = await osql.connect(sql_1);
+        }
     </script>
 
 </head>
 
 <body>
-    <h1>ユーザートップ</h1>
-        役割：（管理者か参加者か入力してください）<input type = 'text' id = 'person'>
-    <div>
-        <button onclick="buttonPressed()">ログイン</button>
-    </div>
+    <h1>抽選一覧</h1>
+    <div id="welcom"></div>
+    <div id = 'lottery_table'></div>
 </body>
 
 </html>
