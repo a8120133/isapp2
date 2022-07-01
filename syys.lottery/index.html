@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript" src="./osql.js"></script>
+
+    <script>
+        osql.requireLogin();
+
+        async function buttonPressed() {
+            var me = await osql.getMe();
+            console.log(me);
+            var sql_1 = `Insert ignore into Players (Player_id, Player_name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
+            var objects_1 = await osql.connect(sql_1);
+            
+            
+
+            sessionStorage.setItem('playerId', me.id);
+            sessionStorage.setItem('name', me.lname);
+
+            location.href = 'usertop.html';
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>トップページ</h1>
+    <div>
+        <button onclick="buttonPressed()">ログイン</button>
+  </div>
+</body>
+
+</html>
