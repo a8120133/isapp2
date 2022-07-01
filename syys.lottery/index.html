@@ -14,8 +14,6 @@
         async function buttonPressed() {
             var me = await osql.getMe();
             console.log(me);
-            var sql_1 = `Insert ignore into Players (Player_id, Player_name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
-            var objects_1 = await osql.connect(sql_1);
             
             
 
