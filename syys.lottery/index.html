@@ -15,7 +15,7 @@
             var me = await osql.getMe();
             console.log(me);
 
-            x = document.getElementById('type');
+            var x = document.getElementById('type').value;
             if (x =='administer'){
                 sessionStorage.setItem('playerId', me.id);
                 sessionStorage.setItem('name', me.lname);
