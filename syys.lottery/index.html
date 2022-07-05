@@ -23,6 +23,8 @@
             }else{
                 var sql = `Insert ignore into Players (Player_id, Player_name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
                 var objects_1 = await osql.connect(sql);
+                var sql = `update Lotteries set player_numbers = player_numbers + 1`;//Playerに自分の情報を追加
+                var objects_1 = await osql.connect(sql);
                 sessionStorage.setItem('playerId', me.id);
                 sessionStorage.setItem('name', me.lname);
                 location.href = 'lottery_player.html';
