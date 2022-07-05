@@ -11,10 +11,18 @@
         function buttonPressed(){
             var Lottery_name = sessionStorage.getItem('Lottery_name');
             var Level_numbers = sessionStorage.getItem('Level_numbers');
-            // for (var i = 0; i < 3; i++) {
-            //     document.getElementById("input_levels").innerHTML = "<input type='int' id='i'>"                
-            //     console.log(i);   
-            //来週ここからやる
+
+            for (var i = 0; i < Level_numbers; i++) {
+                var input_data = document.createElement('input');
+                input_data.innerText = '等です';
+                console.log(input_data.innerText);
+                input_data.type = 'text';
+                input_data.id = 'inputform_' + i;
+                var parent = document.getElementById('input_levels');
+                parent.appendChild(input_data);
+                var j = i + 1;
+                input_data.insertAdjacentHTML('beforebegin', j + '等：');
+            } 
         }
 
     </script>
