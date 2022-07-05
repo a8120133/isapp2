@@ -8,8 +8,6 @@
     <script type="text/javascript" src="./jquery.min.js"></script>
     <script type="text/javascript" src="./osql.js"></script>
     <script>
-        // function buttonPressed(){
-
             $().ready(function () {
             Starting_monitor();
             });
@@ -17,18 +15,28 @@
             var Level_numbers = sessionStorage.getItem('Level_numbers');
 
             function Starting_monitor(){
+                var Levels = [];
                 for (var i = 0; i < Level_numbers; i++) {
                     var input_data = document.createElement('input');
                     input_data.type = 'text';
                     input_data.id = 'inputform_' + i;
+                    // var num = Number(document.getElementById("${'inputform_' + i}").value);
+                    // console.log(num);
+                    // Levels.push(num);
+                    // 来週ここから
                     var parent = document.getElementById('input_levels');
                     parent.appendChild(input_data);
                     var j = i + 1;
-                    var sql = `Insert into Presents(Lottery_id, Lottery_level, Level_numbers) values (1, j, ${input_data.id});`;
-                    var objects = osql.connect(sql);
+                    input_data.insertAdjacentHTML('beforebegin', j + '等：');
                 } 
+                // function buttonPressed(){
+                //     for (var i = 0; i < Level_numbers; i++) {
+                //         var sql = `Insert into Presents(Lottery_id, Lottery_level, Level_number) values (1, ${j}, ${Level_number[i]});`;
+                //         var objects = osql.connect(sql);
+                //     }
+                // }
+                // 来週ここから
             }
-        //}
 
     </script>
 </head>
