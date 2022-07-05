@@ -11,20 +11,21 @@
     <script>
         osql.requireLogin();
 
-        async function buttonPressed() {
+        async function buttonPressed(){
             var me = await osql.getMe();
             console.log(me);
 
-            x = document.getElementById('type').value;
+            x = document.getElementById('type');
             if (x =='administer'){
-                sessionStorage.setItem('Lottery_host', me.lname);
+                sessionStorage.setItem('playerId', me.id);
+                sessionStorage.setItem('name', me.lname);
                 location.href = 'admin1.html';
-            }else if (x =='player'){
-                var sql = `Insert ignore into Players (playerId, name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
+            }else{
+                var sql = `Insert ignore into Players (Player_id, Player_name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
                 var objects_1 = await osql.connect(sql);
                 sessionStorage.setItem('playerId', me.id);
                 sessionStorage.setItem('name', me.lname);
-                location.href = 'lottery-personal.html';
+                location.href = 'lottery_player.html';
             }            
         }
 
