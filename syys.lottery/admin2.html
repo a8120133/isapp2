@@ -11,37 +11,45 @@
             $().ready(function () {
             Starting_monitor();
             });
-            
-            var Lottery_name = sessionStorage.getItem('Lottery_name');
-            var Level_numbers = sessionStorage.getItem('Level_numbers');
+
 
             function Starting_monitor(){
-                console.log(Lottery_name);
-                console.log(Level_numbers);
+                var Lottery_name = sessionStorage.getItem('Lottery_name');
+                var Level_numbers = sessionStorage.getItem('Level_numbers');
                 var Levels = [];
                 for (var i = 0; i < Level_numbers; i++) {
                     var input_data = document.createElement('input');
-                    input_data.type = 'text';
+                    input_data.type = 'int';
                     input_data.id = 'inputform_' + i;
-                    // var num = Number(document.getElementById("${'inputform_' + i}").value);
-                    // console.log(num);
-                    // Levels.push(num);
-                    // 来週ここから
                     var parent = document.getElementById('input_levels');
                     parent.appendChild(input_data);
                     var j = i + 1;
                     input_data.insertAdjacentHTML('beforebegin', j + '等：');
-                } 
+
+                    //var num = document.getElementById("${'inputform_' + i}").value;
+                    with( document.form ) {
+                            var Level_number = elements[i].value;
+                            console.log(Level_number);
+
+                        }
+                        Levels.push(num);
+                    } 
+                    // 来週ここから（コメントアウトの内側以外はok）
             }
 
-            function buttonPressed(){
-                    var sql = `select Lottery_id from Lotteries where Lottery_name = "${Lottery_name}"`;
-                    var objects = osql.connect(sql);
-                    console.log(objects);
-                    // for (var i = 1; i <= Level_numbers; i++) {
-                    //     sql = `Insert into Presents(Lottery_id, Lottery_level, Level_number) values (${objects}, ${i}, ${Level_number[i]});`;
-                    //     objects = osql.connect(sql);
-                    // }
+            async function buttonPressed(){
+                    var Lottery_name = sessionStorage.getItem('Lottery_name');
+                    var Level_numbers = sessionStorage.getItem('Level_numbers');
+                    console.log(Lottery_name);
+                    console.log(Level_numbers);
+                    var sql = `select * from Lotteries where Lottery_name = "${Lottery_name}";`;
+                    var objects = await osql.connect(sql);
+                    Lottery_id = objects[0].Lottery_id;
+                    console.log(objects[0].Lottery_id);
+                    for (var i = 1; i <= Level_numbers; i++) {
+                        sql = `Insert into Presents(Lottery_id, Lottery_level, Level_number) values (${Lottery_id}, ${i}, 0);`;
+                        objects = osql.connect(sql);
+                    }
             }
 
     </script>
