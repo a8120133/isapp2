@@ -16,7 +16,7 @@
             var sql = `Insert into Lottery (Lottery_name, Lottery_host, Player_numbers, Level_numbers) values ("${Lottery_name}", "${Lottery_host}", 0, ${Level_numbers});`;
             var objects = osql.connect(sql);
 
-
+            
 
             sessionStorage.setItem("Lottery_name", Lottery_name);
             sessionStorage.setItem("Level_numbers", Level_numbers);
