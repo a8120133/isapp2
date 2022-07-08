@@ -18,13 +18,13 @@
             var x = document.getElementById('type').value;
             if (x =='administer'){
                 sessionStorage.setItem('playerId', me.id);
-                sessionStorage.setItem('name', me.lname);
+                sessionStorage.setItem('Lottery_host', me.lname);
                 location.href = 'admin1.html';
             }else{
                 var sql = `Insert ignore into Players (Player_id, Player_name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
                 var objects_1 = await osql.connect(sql);
-                var sql = `update Lotteries set player_numbers = player_numbers + 1`;//Playerに自分の情報を追加
-                var objects_1 = await osql.connect(sql);
+                sql = `update Lotteries set player_numbers = player_numbers + 1`;//Playerに自分の情報を追加
+                objects_1 = await osql.connect(sql);
                 sessionStorage.setItem('playerId', me.id);
                 sessionStorage.setItem('name', me.lname);
                 location.href = 'lottery_player.html';

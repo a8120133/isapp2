@@ -8,14 +8,16 @@
     <script type="text/javascript" src="./jquery.min.js"></script>
     <script type="text/javascript" src="./osql.js"></script>
     <script>
-        function buttonPressed(){
+        async function buttonPressed(){
             var Lottery_name = document.getElementById("Lottery_name").value;
             var Lottery_host = sessionStorage.getItem('Lottery_host');
             var Level_numbers = Number(document.getElementById("Level_numbers").value);
 
-            var sql = `Insert into Lottery (Lottery_name, Lottery_host, Player_numbers, Level_numbers) values ("${Lottery_name}", "${Lottery_host}", 0, ${Level_numbers});`;
-            var objects = osql.connect(sql);
-
+            var sql = `Insert into Lotteries (Lottery_name, Lottery_host, Status, Player_numbers, Level_numbers) values ("${Lottery_name}", "${Lottery_host}", "waiting", 10, ${Level_numbers});`;
+            var objects = await osql.connect(sql);
+            console.log(Lottery_name);
+            console.log(Lottery_host);
+            console.log(Level_numbers);
 
 
             sessionStorage.setItem("Lottery_name", Lottery_name);
@@ -34,7 +36,7 @@
             <input type="text" id="Lottery_name">
         </p>
         <p>何等まで？:
-            <input type="text" id="Level_numbers">
+            <input type="int" id="Level_numbers">
             <br>(半角数字で記入してください)
         </p>
     </div>

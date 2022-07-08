@@ -11,10 +11,13 @@
             $().ready(function () {
             Starting_monitor();
             });
+            
             var Lottery_name = sessionStorage.getItem('Lottery_name');
             var Level_numbers = sessionStorage.getItem('Level_numbers');
 
             function Starting_monitor(){
+                console.log(Lottery_name);
+                console.log(Level_numbers);
                 var Levels = [];
                 for (var i = 0; i < Level_numbers; i++) {
                     var input_data = document.createElement('input');
@@ -29,13 +32,16 @@
                     var j = i + 1;
                     input_data.insertAdjacentHTML('beforebegin', j + '等：');
                 } 
-                // function buttonPressed(){
-                //     for (var i = 0; i < Level_numbers; i++) {
-                //         var sql = `Insert into Presents(Lottery_id, Lottery_level, Level_number) values (1, ${j}, ${Level_number[i]});`;
-                //         var objects = osql.connect(sql);
-                //     }
-                // }
-                // 来週ここから
+            }
+
+            function buttonPressed(){
+                    var sql = `select Lottery_id from Lotteries where Lottery_name = "${Lottery_name}"`;
+                    var objects = osql.connect(sql);
+                    console.log(objects);
+                    // for (var i = 1; i <= Level_numbers; i++) {
+                    //     sql = `Insert into Presents(Lottery_id, Lottery_level, Level_number) values (${objects}, ${i}, ${Level_number[i]});`;
+                    //     objects = osql.connect(sql);
+                    // }
             }
 
     </script>
