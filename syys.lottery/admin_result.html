@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽選処理作成用</title>
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript" src="./osql.js"></script>
+    <script>
+        function LetsLottery(){
+            var sql = `select * from Participants where Lottery_id = 1;`;
+            var players = osql.connect(sql);//参加者の配列
+            var awards = [];//等数の配列(settionStrage取ってくる)
+            
+            for(i=0; i<players.length(); i++){
+                var n = Math.floar(random() * awards.length());
+                var award = awards[n];
+                var sql = `update Participants set Personal_Lottery_Level = ${award} where Player_id = "${players[i]}";`;
+                var objects = osql.connect(sql);
+                delete awards[n];//既に配られた賞を消去
+            }
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
