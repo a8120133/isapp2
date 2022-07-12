@@ -9,8 +9,6 @@
     <script type="text/javascript" src="./osql.js"></script>
 
     <script>
-        osql.requireLogin();
-
         async function buttonPressed(){
             var me = await osql.getMe();
             console.log(me);
@@ -23,14 +21,11 @@
             }else{
                 var sql = `Insert ignore into Players (Player_id, Player_name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
                 var objects_1 = await osql.connect(sql);
-                sql = `update Lotteries set player_numbers = player_numbers + 1`;//Playerに自分の情報を追加
-                objects_1 = await osql.connect(sql);
                 sessionStorage.setItem('playerId', me.id);
                 sessionStorage.setItem('name', me.lname);
-                location.href = 'lottery_player.html';
+                location.href = 'join.html';
             }            
-        }
-
+        }     
     </script>
 
 </head>
@@ -46,7 +41,6 @@
             <option value="player">参加者</option>
         </select>
     </div>
-
 </body>
 
 </html>
