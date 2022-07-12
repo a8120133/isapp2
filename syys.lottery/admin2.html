@@ -25,16 +25,7 @@
                     parent.appendChild(input_data);
                     var j = i + 1;
                     input_data.insertAdjacentHTML('beforebegin', j + '等：');
-
-                    //var num = document.getElementById("${'inputform_' + i}").value;
-                    with( document.form ) {
-                            var Level_number = elements[i].value;
-                            console.log(Level_number);
-
-                        }
-                        Levels.push(num);
-                    } 
-                    // 来週ここから（コメントアウトの内側以外はok）
+                }
             }
 
             async function buttonPressed(){
@@ -44,12 +35,24 @@
                     console.log(Level_numbers);
                     var sql = `select * from Lotteries where Lottery_name = "${Lottery_name}";`;
                     var objects = await osql.connect(sql);
-                    Lottery_id = objects[0].Lottery_id;
+                    var Lottery_id = objects[0].Lottery_id;
                     console.log(objects[0].Lottery_id);
-                    for (var i = 1; i <= Level_numbers; i++) {
-                        sql = `Insert into Presents(Lottery_id, Lottery_level, Level_number) values (${Lottery_id}, ${i}, 0);`;
+                    for (var i = 0; i < Level_numbers; i++) {
+                        var num = document.getElementById('inputform_' + i).value;
+                        console.log(num);
+                        var j = i + 1;
+                        sql = `Insert into Presents(Lottery_id, Lottery_level, Level_number) values (${Lottery_id}, ${j}, ${num});`;
                         objects = osql.connect(sql);
                     }
+                    // with( document.form ) {
+                    //         var Level_number = elements[i].value;
+                    //         console.log(Level_number);
+
+                    //     }
+                    //     Levels.push(num);
+                    // } 
+                    // 来週ここから（コメントアウトの内側以外はok）
+
             }
 
     </script>
@@ -59,7 +62,7 @@
     <div id="input_levels">
         
     </div>
-    <button onclick="buttonPressed()">設定</button>
+    <button onclick="buttonPressed()">抽選開始</button>
     
 </body>
 </html>
