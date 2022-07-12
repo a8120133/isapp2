@@ -33,16 +33,17 @@
             }
             console.log(awards);
 
+            var members = [];
             sql = `select * from Participants where Lottery_id = ${Lottery_id};`;
             var objects = await osql.connect(sql);
             console.log(objects);
-            var members = [];
-            var Player_id = objects[0].Player_id;
-            console.log(Player_id);
             sql = `select Player_numbers from Lotteries where Lottery_id = ${Lottery_id};`;
             objects = await osql.connect(sql);
             var Member_numbers = objects[0];
-            for(k = 0; k < Member_numbers; k++){
+
+            for(k = 0; k < Member_numbers; k++){            
+                var Player_id = objects[k].Player_id;
+                console.log(Player_id);
                 members.push(Player_id);
             }
             console.log(members);//シャッフル前のmembers
