@@ -12,11 +12,13 @@
             showResult()
             
         });
-        function showResult(){
-            var Player_id = sessionStorage.getItem("PlayerId");
-            var sql = `select * from Participants where Player_id =${Player_id} `;
+        async function showResult(){
+            var Player_id = sessionStorage.getItem("playerId");
+            console.log(Player_id);
+            var sql = `select * from Participants where Player_id ="${Player_id}" `;
             var objects= await osql.connect(sql);
-            document.getElementById("result").innerHTML = "あなたは" + objects[0].level + "です";
+            console.log(objects);
+            document.getElementById("result").innerHTML = "あなたは" + objects[0].Personal_Lottery_Level + "です";
         }
     </script>
 
