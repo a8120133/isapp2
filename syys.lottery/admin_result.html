@@ -8,22 +8,40 @@
     <script type="text/javascript" src="./jquery.min.js"></script>
     <script type="text/javascript" src="./osql.js"></script>
     <script>
+        var Lottery_name = sessionStorage.getItem('Lottery_name');
+        var Lottery_id = sessionStorage.getItem('Lottery_id');
+        var Level_numbers = sessionStorage.getItem('Level_numbers');
+
+        $().ready(function () {
+            LetsLottery();
+            });
+
         function LetsLottery(){
-            var sql = `select * from Participants where Lottery_id = 1;`;
+            console.log(Lottery_name);
+            console.log(Lottery_id);
+            console.log(Level_numbers);
+            var sql = `select * from Participants where Lottery_id = ${Lottery_id};`;
             var players = osql.connect(sql);//参加者の配列
-            var awards = [];//等数の配列(settionStrage取ってくる)
-            
-            for(i=0; i<players.length(); i++){
-                var n = Math.floar(random() * awards.length());
-                var award = awards[n];
-                var sql = `update Participants set Personal_Lottery_Level = ${award} where Player_id = "${players[i]}";`;
+            var awards = [];//等数の配列(sessionStrage取ってくる)
+            for(i=0; i<Level_numbers; i++){
+                var j = i + 1;
+                var sql = `select Level_number from Presents where Lottery_id = '${Lottery_id}' AND Lottery_level = '${j}';`;
                 var objects = osql.connect(sql);
-                delete awards[n];//既に配られた賞を消去
+                console.log(objects);
             }
+
+            
+            // for(i=0; i<players.length(); i++){
+            //     var n = Math.floar(random() * awards.length());
+            //     var award = awards[n];
+            //     var sql = `update Participants set Personal_Lottery_Level = ${award} where Player_id = "${players[i]}";`;
+            //     var objects = osql.connect(sql);
+            //     delete awards[n];//既に配られた賞を消去
+            // }
         }
     </script>
 </head>
 <body>
-    
+    <h1>resultだよ</h1>
 </body>
 </html>
