@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript" src="./osql.js"></script>
     <title>個人結果</title>
+    <script>
+        $().ready(function () {
+            showResult()
+            
+        });
+        function showResult(){
+            var Player_id = sessionStorage.getItem("PlayerId");
+            var sql = `select * from Participants where Player_id =${Player_id} `;
+            var objects= await osql.connect(sql);
+            document.getElementById("result").innerHTML = "あなたは" + objects[0].level + "です";
+        }
+    </script>
+
 </head>
 <body>
-    <p>個人の結果</p>
-    <p></p>
+    <h1>個人の結果</h1>
+    <div>
+        <p id="result"></p>
+    </div>
 </body>
 </html>
