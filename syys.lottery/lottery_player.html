@@ -8,6 +8,7 @@
     <script type="text/javascript" src="./jquery.min.js"></script>
     <script type="text/javascript" src="./osql.js"></script>
     <script>
+        osql.requireLogin();
         $().ready(function () {
             setInterval(doCheck, 2000);
             joinLottery()
@@ -17,7 +18,7 @@
             var player = sessionStorage.getItem('playerId');
         }
         async function doCheck(){
-            var sql = `select * from Lotteryies where lottery_id = 1;`;
+            var sql = `select * from Lotteries where lottery_id = 1;`;
             var objects = await osql.connect(sql);
             if(objects[0].Status = "ongoing"){
                 location.href = "personal_result.html";
@@ -27,7 +28,10 @@
         async function joinLottery(){//ログインしたplayerをParticipantsテーブルに追加
             var PlayerId =  sessionStorage.getItem('playerId');;
             var sql =  `insert into Participants (Lottery_id, Player_id) values (1, "${PlayerId}");`;
-            var objects = await osql.connect(sql);  
+            var objects = await osql.connect(sql); 
+            var Lottery_id = osql.getParam("Lottery_id");
+            sql = `update Lotteries set Player_numbers = Player_numbers + 1 where Lottery_id = ${Lottery_id};`;
+            objects = await osql.connect(sql); 
         }
 
     </script>
