@@ -16,6 +16,9 @@
             function Starting_monitor(){
                 var Lottery_name = sessionStorage.getItem('Lottery_name');
                 var Level_numbers = sessionStorage.getItem('Level_numbers');
+                console.log(Lottery_name);
+                console.log(Level_numbers);
+                document.getElementById("LotteryName").innerHTML = 'この抽選は「' + Lottery_name + '」です';
                 var Levels = [];
                 for (var i = 0; i < Level_numbers; i++) {
                     var input_data = document.createElement('input');
@@ -44,21 +47,22 @@
                         sql = `Insert into Presents(Lottery_id, Lottery_level, Level_number) values (${Lottery_id}, ${j}, ${num});`;
                         objects = osql.connect(sql);
                     }
-                    // with( document.form ) {
-                    //         var Level_number = elements[i].value;
-                    //         console.log(Level_number);
+                    sql = `update Lotteries set Status = 'ongoing' where Lottery_id = '${Lottery_id}';`;
+                    var objects = await osql.connect(sql);
 
-                    //     }
-                    //     Levels.push(num);
-                    // } 
-                    // 来週ここから（コメントアウトの内側以外はok）
+                    sessionStorage.setItem("Lottery_name", Lottery_name);
+                    sessionStorage.setItem("Lottery_id", Lottery_id);
+                    sessionStorage.setItem("Level_numbers", Level_numbers);
+
+                    location.href = 'admin_result.html';
 
             }
 
     </script>
 </head>
 <body>
-    <h1>管理者ページ2</h1>
+    <h1>管理者ページ２</h1>
+    <h2 type = "text" id ="LotteryName"></h2>
     <div id="input_levels">
         
     </div>
