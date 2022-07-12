@@ -40,6 +40,7 @@
             sql = `select Player_numbers from Lotteries where Lottery_id = ${Lottery_id};`;
             objects = await osql.connect(sql);
             var Member_numbers = objects[0];
+            console.log(Member_numbers);
 
             for(k = 0; k < Member_numbers; k++){            
                 var Player_id = objects[k].Player_id;
@@ -64,6 +65,8 @@
                 var sql = `update Participants set Personal_Lottery_Level = ${Personal_Lottery_Level} where Player_id = '${Player_id}' AND Lottery_id = ${Lottery_id};`;
                 var objects = await osql.connect(sql);
             }
+
+
             
             // for(i=0; i<players.length(); i++){
             //     var n = Math.floar(random() * awards.length());
