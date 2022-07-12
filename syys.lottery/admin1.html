@@ -13,7 +13,7 @@
             var Lottery_host = sessionStorage.getItem('Lottery_host');
             var Level_numbers = Number(document.getElementById("Level_numbers").value);
 
-            var sql = `Insert into Lotteries (Lottery_name, Lottery_host, Status, Player_numbers, Level_numbers) values ("${Lottery_name}", "${Lottery_host}", "waiting", 10, ${Level_numbers});`;
+            var sql = `Insert into Lotteries (Lottery_name, Lottery_host, Status, Player_numbers, Level_numbers) values ("${Lottery_name}", "${Lottery_host}", "waiting", 0, ${Level_numbers});`;
             var objects = await osql.connect(sql);
             console.log(Lottery_name);
             console.log(Lottery_host);
