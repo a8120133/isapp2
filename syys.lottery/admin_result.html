@@ -16,7 +16,7 @@
             LetsLottery();
             });
 
-        function LetsLottery(){
+        async function LetsLottery(){
             console.log(Lottery_name);
             console.log(Lottery_id);
             console.log(Level_numbers);
@@ -25,10 +25,15 @@
             var awards = [];//等数の配列(sessionStrage取ってくる)
             for(i=0; i<Level_numbers; i++){
                 var j = i + 1;
-                var sql = `select Level_number from Presents where Lottery_id = '${Lottery_id}' AND Lottery_level = '${j}';`;
-                var objects = osql.connect(sql);
-                console.log(objects);
+                var sql = `select * from Presents where Lottery_id = ${Lottery_id} AND Lottery_level = ${j};`;
+                var objects = await osql.connect(sql);
+                var Level_number = objects[0].Level_number;
+                console.log(Level_number);
+                for(k=0; k<Level_number; k++){
+                    awards.push(j);
+                }
             }
+            console.log(awards);
 
             
             // for(i=0; i<players.length(); i++){
