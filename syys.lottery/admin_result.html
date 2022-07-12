@@ -20,8 +20,6 @@
             console.log(Lottery_name);
             console.log(Lottery_id);
             console.log(Level_numbers);
-            var sql = `select * from Participants where Lottery_id = ${Lottery_id};`;
-            var players = osql.connect(sql);//参加者の配列
             var awards = [];//等数の配列(sessionStrage取ってくる)
             for(i=0; i<Level_numbers; i++){
                 var j = i + 1;
@@ -35,6 +33,28 @@
             }
             console.log(awards);
 
+            sql = `select * from Participants where Lottery_id = ${Lottery_id};`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+            var members = [];
+            var Player_id = objects[0].Player_id;
+            console.log(Player_id);
+            sql = `select Player_numbers from Lotteries where Lottery_id = ${Lottery_id};`;
+            objects = await osql.connect(sql);
+            var Member_numbers = objects[0];
+            for(k = 0; k < Member_numbers; k++){
+                members.push(Player_id);
+            }
+            console.log(members);
+
+
+            for (var i = 1; i < Member_numbers * 2; i++) {
+                var n = Math.floor(Math.random()*Member_numbers);
+                var m = Math.floor(Math.random()*Member_numbers);
+                var tmp = members[n]
+                members[n] = members[m]
+                members[m] = tmp
+            }
             
             // for(i=0; i<players.length(); i++){
             //     var n = Math.floar(random() * awards.length());

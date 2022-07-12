@@ -159,3 +159,4 @@ osql.LetsLottery = function(){//抽選する関数
         delete awards[n];//既に配られた賞を消去
     }
 }
+
