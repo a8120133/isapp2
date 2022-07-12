@@ -12,7 +12,7 @@
             showResult()
             
         });
-        function showResult(){
+        async function showResult(){
             var Player_id = sessionStorage.getItem("PlayerId");
             var sql = `select * from Participants where Player_id =${Player_id} `;
             var objects= await osql.connect(sql);
