@@ -145,3 +145,17 @@ osql.getCookies = function () {
     }
     return cookies;
 }
+
+osql.LetsLottery = function(){//抽選する関数
+    var sql = `select * from Participants where Lottery_id = 1;`;
+    var players = osql.connect(sql);//参加者の配列
+    var awards = [];//等数の配列(settionStrage取ってくる)
+    
+    for(i=0; i<players.length(); i++){
+        var n = Math.floar(random() * awards.length());
+        var award = awards[n];
+        var sql = `update Participants set Personal_Lottery_Level = ${award} where Player_id = "${players[i]}";`;
+        var objects = osql.connect(sql);
+        delete awards[n];//既に配られた賞を消去
+    }
+}
