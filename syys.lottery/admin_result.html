@@ -45,7 +45,7 @@
             for(k = 0; k < Member_numbers; k++){
                 members.push(Player_id);
             }
-            console.log(members);
+            console.log(members);//シャッフル前のmembers
 
 
             for (var i = 1; i < Member_numbers * 2; i++) {
@@ -54,6 +54,14 @@
                 var tmp = members[n]
                 members[n] = members[m]
                 members[m] = tmp
+            }
+            console.log(members)//シャッフル後のmembers
+
+            for (var i = 0; i < Member_numbers; i++) {
+                var Personal_Lottery_Level = awards[i];
+                var Player_id = members[i];
+                var sql = `update Participants set Personal_Lottery_Level = ${Personal_Lottery_Level} where Player_id = '${Player_id}' AND Lottery_id = ${Lottery_id};`;
+                var objects = await osql.connect(sql);
             }
             
             // for(i=0; i<players.length(); i++){
