@@ -45,6 +45,8 @@
             sql = `select Player_id from Participants where Lottery_id = ${Lottery_id};`;
             objects = await osql.connect(sql);
             console.log(objects);
+        // 次回ここから
+    
             for(k = 0; k < Member_numbers; k++){            
                 var Player_id = objects[k].Player_id;
                 console.log(Player_id);
