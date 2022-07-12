@@ -10,17 +10,18 @@
     <script>
         osql.requireLogin();
         $().ready(function () {
+            doCheck()
             setInterval(doCheck, 2000);
             joinLottery()
             
         });
-        function showReslut(){
-            var player = sessionStorage.getItem('playerId');
-        }
         async function doCheck(){
-            var sql = `select * from Lotteries where lottery_id = 1;`;
+            var Lottery_id = osql.getParam("Lottery_id");
+            var sql = `select * from Lotteries where lottery_id = ${Lottery_id};`;
             var objects = await osql.connect(sql);
-            if(objects[0].Status = "ongoing"){
+            var status = objects[0].Status;
+            console.log(status);
+            if(status == "ongoing"){
                 location.href = "personal_result.html";
             }
              
