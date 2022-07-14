@@ -21,7 +21,7 @@
                 location.href = 'admin1.html';
             }else{
                 sessionStorage.setItem('playerId', me.id);
-                var sql = `Insert ignore into Players (Player_id, Player_name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
+                var sql = `Insert ignore Player_id into Players (Player_id, Player_name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
                 var objects_1 = await osql.connect(sql);
                 location.href = 'join.html';
             }            
