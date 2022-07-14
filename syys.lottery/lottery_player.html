@@ -32,7 +32,7 @@
                 html = html + '</table>';
                 document.getElementById("showParticipants").innerHTML = html;
             }
-            
+
         async function doCheck(){
             var Lottery_id = osql.getParam("Lottery_id");
             var sql = `select * from Lotteries where lottery_id = ${Lottery_id};`;
@@ -59,7 +59,9 @@
 </head>
 <body>
     <h1>抽選</h1>
-    <div id="result">抽選開始まで待っててね</div>
+    <p>抽選開始まで待っててね</p>
+    <div id="showParticipants"></div>
+    
     
 </body>
 </html>
