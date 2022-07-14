@@ -58,7 +58,7 @@
                     location.href = 'admin_result.html';
 
             }async function showParticipants(){
-                var Lottery_id = osql.getPram(Lottery_id);
+                var Lottery_id = await osql.getPram(Lottery_id);
                 var sql = `select * from Participants inner join Players on Participant.Player_id = Players.Player_id where Lottery_id = ${Lottery_id};`;
                 var objects = await osql.connect(sql);
                 var html = '';
