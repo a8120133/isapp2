@@ -20,7 +20,6 @@
             var sql = `select * from Lotteries where lottery_id = ${Lottery_id};`;
             var objects = await osql.connect(sql);
             var status = objects[0].Status;
-            console.log(status);
             if(status == "ongoing"){
                 location.href = "personal_result.html";
             }
