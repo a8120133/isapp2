@@ -13,10 +13,11 @@
         var Level_numbers = sessionStorage.getItem('Level_numbers');
 
         $().ready(function () {
-            LetsLottery();
+            showParticipants();
             });
 
-        async function lottery(){
+        async function lottery(){//抽選ボタンが押されたら
+            LetsLottery()
             sql = `select * from Lotteries order by Lottery_id desc limit 1;`
             objects = await osql.connect(sql);
             var Lottery_id = objects[0].Lottery_id;
@@ -42,10 +43,7 @@
                 document.getElementById("showParticipants").innerHTML = html;
             }
 
-        async function LetsLottery(){
-            console.log(Lottery_name);
-            console.log(Lottery_id);
-            console.log(Level_numbers);
+        async function LetsLottery(){//抽選システム
             var awards = [];//等数の配列(sessionStrage取ってくる)
             for(i=0; i<Level_numbers; i++){
                 var j = i + 1;
@@ -57,25 +55,16 @@
                     awards.push(j);
                 }
             }
-
             var members = [];
             sql = `select Player_numbers from Lotteries where Lottery_id = ${Lottery_id};`;
             objects = await osql.connect(sql);
-            console.log(objects);
             var Member_numbers = objects[0].Player_numbers;
-            console.log(Member_numbers);
             sql = `select Player_id from Participants where Lottery_id = ${Lottery_id};`;
             objects = await osql.connect(sql);
-        // 次回ここから
-    
             for(k = 0; k < Member_numbers; k++){            
                 var Player_id = objects[k].Player_id;
-                console.log(Player_id);
                 members.push(Player_id);
             }
-            console.log(members);//シャッフル前のmembers
-
-
             for (var i = 1; i < Member_numbers * 2; i++) {
                 var n = Math.floor(Math.random()*Member_numbers);
                 var m = Math.floor(Math.random()*Member_numbers);
@@ -83,22 +72,12 @@
                 members[n] = members[m]
                 members[m] = tmp
             }
-            console.log(members)//シャッフル後のmembers
-
             for (var i = 0; i < Member_numbers; i++) {
                 var Personal_Lottery_Level = awards[i];
                 var Player_id = members[i];
                 var sql = `update Participants set Personal_Lottery_Level = ${Personal_Lottery_Level} where Player_id = '${Player_id}' AND Lottery_id = ${Lottery_id};`;
                 var objects = await osql.connect(sql);
             }
-            
-            // for(i=0; i<players.length(); i++){
-            //     var n = Math.floar(random() * awards.length());
-            //     var award = awards[n];
-            //     var sql = `update Participants set Personal_Lottery_Level = ${award} where Player_id = "${players[i]}";`;
-            //     var objects = osql.connect(sql);
-            //     delete awards[n];//既に配られた賞を消去
-            // }
         }
     </script>
 </head>

@@ -13,12 +13,9 @@
                 setInterval(showParticipants, 2000);
             });
 
-
-            function Starting_monitor(){
+            function Starting_monitor(){//inputを表紙
                 var Lottery_name = sessionStorage.getItem('Lottery_name');
                 var Level_numbers = sessionStorage.getItem('Level_numbers');
-                console.log(Lottery_name);
-                console.log(Level_numbers);
                 document.getElementById("LotteryName").innerHTML = 'この抽選は「' + Lottery_name + '」です';
                 var Levels = [];
                 for (var i = 0; i < Level_numbers; i++) {
@@ -32,15 +29,12 @@
                 }
             }
 
-            async function buttonPressed(){
+            async function buttonPressed(){//設置ボタン
                     var Lottery_name = sessionStorage.getItem('Lottery_name');
                     var Level_numbers = sessionStorage.getItem('Level_numbers');
-                    console.log(Lottery_name);
-                    console.log(Level_numbers);
-                    var sql = `select * from Lotteries where Lottery_name = "${Lottery_name}";`;
-                    var objects = await osql.connect(sql);
+                    sql = `select * from Lotteries order by Lottery_id desc limit 1;`
+                    objects = await osql.connect(sql);
                     var Lottery_id = objects[0].Lottery_id;
-                    console.log(objects[0].Lottery_id);
                     for (var i = 0; i < Level_numbers; i++) {
                         var num = document.getElementById('inputform_' + i).value;
                         console.log(num);
@@ -48,14 +42,10 @@
                         sql = `Insert into Presents(Lottery_id, Lottery_level, Level_number) values (${Lottery_id}, ${j}, ${num});`;
                         objects = osql.connect(sql);
                     }
-
-                    sessionStorage.setItem("Lottery_name", Lottery_name);
                     sessionStorage.setItem("Lottery_id", Lottery_id);
-                    sessionStorage.setItem("Level_numbers", Level_numbers);
-
                     location.href = 'LetLottery.html';
-
-            }async function showParticipants(){
+            }
+            async function showParticipants(){//参加者表示
                 sql = `select * from Lotteries order by Lottery_id desc limit 1;`
                 objects = await osql.connect(sql);
                 var Lottery_id = objects[0].Lottery_id;
