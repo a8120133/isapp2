@@ -21,7 +21,7 @@
             var objects = await osql.connect(sql);
             var status = objects[0].Status;
             if(status == "ongoing"){
-                location.href = "personal_result.html";
+                location.href = "personal_result?Lottery_id=" + Lottery_id +".html";
             }
              
         }
