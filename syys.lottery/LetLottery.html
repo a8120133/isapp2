@@ -23,7 +23,7 @@
             var Lottery_id = objects[0].Lottery_id;
             sql = `update Lotteries set Status = 'ongoing' where Lottery_id = '${Lottery_id}';`;
             var objects = await osql.connect(sql);
-            location.herf = "admin_result.html";
+            location.href = 'admin_result.html';
         }
         async function showParticipants(){
                 sql = `select * from Lotteries order by Lottery_id desc limit 1;`
@@ -44,13 +44,12 @@
             }
 
         async function LetsLottery(){//抽選システム
-            var awards = [];//等数の配列(sessionStrage取ってくる)
+            var awards = [];
             for(i=0; i<Level_numbers; i++){
                 var j = i + 1;
                 var sql = `select * from Presents where Lottery_id = ${Lottery_id} AND Lottery_level = ${j};`;
                 var objects = await osql.connect(sql);
                 var Level_number = objects[0].Level_number;
-                console.log(Level_number);
                 for(k=0; k<Level_number; k++){
                     awards.push(j);
                 }
@@ -59,6 +58,8 @@
             sql = `select Player_numbers from Lotteries where Lottery_id = ${Lottery_id};`;
             objects = await osql.connect(sql);
             var Member_numbers = objects[0].Player_numbers;
+            console.log(objects);
+            console.log(Member_numbers);
             sql = `select Player_id from Participants where Lottery_id = ${Lottery_id};`;
             objects = await osql.connect(sql);
             for(k = 0; k < Member_numbers; k++){            
