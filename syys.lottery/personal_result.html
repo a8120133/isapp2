@@ -13,9 +13,10 @@
             
         });
         async function showResult(){
+            var Lottery_id = osql.getParam("Lottery_id");
             var Player_id = sessionStorage.getItem("playerId");
             console.log(Player_id);
-            var sql = `select * from Participants where Player_id ="${Player_id}" `;
+            var sql = `select * from Participants where Player_id ="${Player_id}" AND Lottery_id=${Lotery_id} `;
             var objects= await osql.connect(sql);
             console.log(objects);
             document.getElementById("result").innerHTML = "あなたは" + objects[0].Personal_Lottery_Level + "です";
