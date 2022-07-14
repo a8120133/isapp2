@@ -32,6 +32,9 @@
             var objects = await osql.connect(sql); 
             sql = `update Lotteries set Player_numbers = Player_numbers + 1 where Lottery_id = ${Lottery_id};`;
             objects = await osql.connect(sql); 
+            // sql = `select Lottery_name from Lotteries where Lottery_id = ${Lottery_id};`;
+            // objects = await osql.connect(sql); 
+            // console.log(objects);
         }
 
     </script>

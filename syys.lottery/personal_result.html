@@ -20,13 +20,15 @@
             var sql = `select * from Participants where Player_id ="${Player_id}" AND Lottery_id=${Lottery_id} `;
             var objects= await osql.connect(sql);
             console.log(objects);
-            document.getElementById("result").innerHTML = "あなたは" + objects[0].Personal_Lottery_Level + "です";
+            // document.getElementById("LotteryName").innerHTML = 'この抽選は「' + Lottery_name + '」です';
+            document.getElementById("result").innerHTML = "あなたは" + objects[0].Personal_Lottery_Level + "等です";
         }
     </script>
 
 </head>
 <body>
     <h1>個人の結果</h1>
+    <h2 type = "text" id ="LotteryName"></h2>
     <div>
         <p id="result"></p>
     </div>
