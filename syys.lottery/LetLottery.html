@@ -15,10 +15,32 @@
         $().ready(function () {
             LetsLottery();
             });
-            
+
         function lottery(){
+            sql = `select * from Lotteries order by Lottery_id desc limit 1;`
+            objects = await osql.connect(sql);
+            var Lottery_id = objects[0].Lottery_id;
+            sql = `update Lotteries set Status = 'ongoing' where Lottery_id = '${Lottery_id}';`;
+            var objects = await osql.connect(sql);
             location.herf = "admin_result.html";
         }
+        async function showParticipants(){
+                sql = `select * from Lotteries order by Lottery_id desc limit 1;`
+                objects = await osql.connect(sql);
+                var Lottery_id = objects[0].Lottery_id;
+                var sql = `select * from Participants inner join Players on Participants.Player_id = Players.Player_id where Lottery_id = ${Lottery_id};`;
+                var objects = await osql.connect(sql);
+                var html = '';
+                html = html + '<table border="1">';
+                for (var i = 0; i < objects.length; i++) {
+                    html = html + '<tr>';
+                    var object = objects[i];
+                    html = html + '<td>' + object.Player_name+ '</td>';
+                    html = html + '</tr>';
+                }
+                html = html + '</table>';
+                document.getElementById("showParticipants").innerHTML = html;
+            }
 
         async function LetsLottery(){
             console.log(Lottery_name);
@@ -83,5 +105,7 @@
 <body>
     <h1>準備はいい？</h1>
     <button onclick="lottery()">抽選開始</button>
+    <hr>
+    <div id="showParticipants">     </div>
 </body>
 </html>

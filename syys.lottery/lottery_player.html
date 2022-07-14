@@ -13,7 +13,7 @@
             doCheck()
             setInterval(doCheck, 2000);
             joinLottery()
-            
+            setInterval(showParticipants, 2000);   
         });
         async function doCheck(){
             var Lottery_id = osql.getParam("Lottery_id");

@@ -48,14 +48,12 @@
                         sql = `Insert into Presents(Lottery_id, Lottery_level, Level_number) values (${Lottery_id}, ${j}, ${num});`;
                         objects = osql.connect(sql);
                     }
-                    sql = `update Lotteries set Status = 'ongoing' where Lottery_id = '${Lottery_id}';`;
-                    var objects = await osql.connect(sql);
 
                     sessionStorage.setItem("Lottery_name", Lottery_name);
                     sessionStorage.setItem("Lottery_id", Lottery_id);
                     sessionStorage.setItem("Level_numbers", Level_numbers);
 
-                    location.href = 'admin_result.html';
+                    location.href = 'LetLottery.html';
 
             }async function showParticipants(){
                 sql = `select * from Lotteries order by Lottery_id desc limit 1;`
