@@ -16,7 +16,30 @@
             LetsLottery();
             showResult()
             });
+<<<<<<< HEAD
         
+=======
+        async function showResult(){
+            sql = `select * from Lotteries order by Lottery_id desc limit 1;`;
+            objects = await osql.connect(sql);
+            var Lottery_id = objects[0].Lottery_id;
+            sql = `select * from Participants inner join Players on Participants.Player_id=Players.Player_id where Lottery_id = ${Lottery_id};`;
+            objects = await osql.connect(sql);
+
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < objects.length; i++){
+                html = html + '<tr>';
+                var object = objects[i];
+                html = html + '<td>' + object.Player_name + '</td>';
+                html = html + '<td>' + object.Personal_Lottery_Level+ '</td>';
+                html = html + '</tr>';
+                }
+                html = html + '</table>';
+                document.getElementById("result").innerHTML = html;
+        }
+
+>>>>>>> parent of ce382f9 (no message)
 
         async function LetsLottery(){
             console.log(Lottery_name);
