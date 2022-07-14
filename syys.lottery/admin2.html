@@ -9,7 +9,8 @@
     <script type="text/javascript" src="./osql.js"></script>
     <script>
             $().ready(function () {
-            Starting_monitor();
+                Starting_monitor();
+                setInterval(showParticipants, 2000);
             });
 
 
@@ -56,6 +57,22 @@
 
                     location.href = 'admin_result.html';
 
+            }async function showParticipants(){
+                sql = `select * from Lotteries order by Lottery_id desc limit 1;`
+                objects = await osql.connect(sql);
+                var Lottery_id = objects[0].Lottery_id;
+                var sql = `select * from Participants inner join Players on Participant.Player_id = Players.Player_id where Lottery_id = ${Lottery_id};`;
+                var objects = await osql.connect(sql);
+                var html = '';
+                html = html + '<table border="1">';
+                for (var i = 0; i < objects.length; i++) {
+                    html = html + '<tr>';
+                    var object = objects[i];
+                    html = html + '<td>' + object.Player_name+ '</td>';
+                    html = html + '</tr>';
+                }
+                html = html + '</table>';
+                document.getElementById("showParticipants").innerHTML = html;
             }
 
     </script>
@@ -66,7 +83,9 @@
     <div id="input_levels">
         
     </div>
-    <button onclick="buttonPressed()">抽選開始</button>
+    <button onclick="buttonPressed()">設定</button>
+    <hr>
+    <div id="showParticipants"></div>
     
 </body>
 </html>
