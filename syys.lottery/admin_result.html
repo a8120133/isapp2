@@ -19,7 +19,7 @@
         async function showResult(){
             sql = `select * from Lotteries order by Lottery_id desc limit 1;`
             objects = await osql.connect(sql);
-            var Lottery_id = object[0].Lottery_id;
+            var Lottery_id = objects[0].Lottery_id;
             sql = `select * from Participants where Lottery_id = ${Lottery_id};`
             objects = await osql.connect(sql);
 

@@ -60,7 +60,7 @@
             }async function showParticipants(){
                 sql = `select * from Lotteries order by Lottery_id desc limit 1;`
                 objects = await osql.connect(sql);
-                var Lottery_id = object[0].Lottery_id;
+                var Lottery_id = objects[0].Lottery_id;
                 var sql = `select * from Participants inner join Players on Participant.Player_id = Players.Player_id where Lottery_id = ${Lottery_id};`;
                 var objects = await osql.connect(sql);
                 var html = '';
