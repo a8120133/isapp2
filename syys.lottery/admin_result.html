@@ -39,7 +39,7 @@
             console.log(objects);
             sql = `select Player_numbers from Lotteries where Lottery_id = ${Lottery_id};`;
             objects = await osql.connect(sql);
-            var Member_numbers = objects[0];
+            var Member_numbers = Number(objects[0]);
             console.log(Member_numbers);
 
             sql = `select Player_id from Participants where Lottery_id = ${Lottery_id};`;
