@@ -33,12 +33,10 @@
             }
 
             var members = [];
-            sql = `select * from Participants where Lottery_id = ${Lottery_id};`;
-            var objects = await osql.connect(sql);
             sql = `select Player_numbers from Lotteries where Lottery_id = ${Lottery_id};`;
             objects = await osql.connect(sql);
             console.log(objects);
-            var Member_numbers =  3;//objects[0].Player_numbers;
+            var Member_numbers = objects[0].Player_numbers;
             console.log(Member_numbers);
             sql = `select Player_id from Participants where Lottery_id = ${Lottery_id};`;
             objects = await osql.connect(sql);
