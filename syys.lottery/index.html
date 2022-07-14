@@ -9,6 +9,7 @@
     <script type="text/javascript" src="./osql.js"></script>
 
     <script>
+        osql.requireLogin();
         async function buttonPressed(){
             var me = await osql.getMe();
             console.log(me);
@@ -19,10 +20,9 @@
                 sessionStorage.setItem('Lottery_host', me.lname);
                 location.href = 'admin1.html';
             }else{
+                sessionStorage.setItem('playerId', me.id);
                 var sql = `Insert ignore into Players (Player_id, Player_name) values("${me.id}", "${me.lname}");`;//Playerに自分の情報を追加
                 var objects_1 = await osql.connect(sql);
-                sessionStorage.setItem('playerId', me.id);
-                sessionStorage.setItem('name', me.lname);
                 location.href = 'join.html';
             }            
         }     
