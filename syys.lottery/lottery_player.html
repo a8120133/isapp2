@@ -46,7 +46,7 @@
         async function joinLottery(){//ログインしたplayerをParticipantsテーブルに追加
             var PlayerId =  sessionStorage.getItem('playerId');
             var Lottery_id = osql.getParam("Lottery_id");
-            var sql =  `insert into Participants (Lottery_id, Player_id) values (${Lottery_id}, "${PlayerId}");`;
+            var sql =  `insert ignore into Participants (Lottery_id, Player_id) values (${Lottery_id}, "${PlayerId}");`;
             var objects = await osql.connect(sql); 
             sql = `update Lotteries set Player_numbers = Player_numbers + 1 where Lottery_id = ${Lottery_id};`;
             objects = await osql.connect(sql); 
