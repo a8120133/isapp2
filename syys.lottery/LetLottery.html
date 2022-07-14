@@ -14,9 +14,11 @@
 
         $().ready(function () {
             LetsLottery();
-            showResult()
             });
-        
+            
+        function lottery(){
+            location.herf = "admin_result.html";
+        }
 
         async function LetsLottery(){
             console.log(Lottery_name);
@@ -67,29 +69,6 @@
                 var sql = `update Participants set Personal_Lottery_Level = ${Personal_Lottery_Level} where Player_id = '${Player_id}' AND Lottery_id = ${Lottery_id};`;
                 var objects = await osql.connect(sql);
             }
-            async function showResult(){
-                sql = `select * from Lotteries order by Lottery_id desc limit 1;`;
-                objects = await osql.connect(sql);
-                var Lottery_id = objects[0].Lottery_id;
-                sql = `select * from Participants inner join Players on Participants.Player_id = Players.Player_id where Lottery_id = ${Lottery_id};`;
-                objects = await osql.connect(sql);
-                console.log(objects);
-
-                var html = '';
-                html = html + '<table border="1">';
-                for (var i = 0; i < objects.length; i++){
-                    html = html + '<tr>';
-                    var object = objects[i];
-                    html = html + '<td>' + object.Player_name + '</td>';
-                    html = html + '<td>' + object.Personal_Lottery_Level+ '</td>';
-                    html = html + '</tr>';
-                    }
-                    html = html + '</table>';
-                    document.getElementById("result").innerHTML = html;
-            }
-
-
-
             
             // for(i=0; i<players.length(); i++){
             //     var n = Math.floar(random() * awards.length());
@@ -102,7 +81,7 @@
     </script>
 </head>
 <body>
-    <h1>resultだよ</h1>
-    <div id="result"></div>
+    <h1>準備はいい？</h1>
+    <button onclick="lottery()">抽選開始</button>
 </body>
 </html>
