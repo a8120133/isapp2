@@ -35,7 +35,7 @@
 
         async function doCheck(){
             var Lottery_id = osql.getParam("Lottery_id");
-            var sql = `select * from Lotteries where lottery_id = ${Lottery_id};`;
+            var sql = `select * from Lotteries where Lottery_id = ${Lottery_id};`;
             var objects = await osql.connect(sql);
             var status = objects[0].Status;
             if(status == "ongoing"){
